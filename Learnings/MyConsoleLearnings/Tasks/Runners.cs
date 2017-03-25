@@ -20,27 +20,21 @@ namespace Tasks
             Console.ReadKey();
         }
 
-        internal async void AsyncRunner()
+        public async Task MyMethodAsync()
         {
-            Console.WriteLine("Method started");
-            Task<int> x = DoWork();
-            Console.WriteLine("Writing ");
-            Console.WriteLine("Writing ");
-            Console.WriteLine("Writing ");
-            Console.WriteLine("Writing ");
-            Console.WriteLine("Writing ");
-            int result = await x;
-            Console.WriteLine("Int is " + result);
+            Task<int> longRunningTask = LongRunningOperationAsync();
+            // independent work which doesn't need the result of LongRunningOperationAsync can be done here
+
+            //and now we call await on the task 
+            int result = await longRunningTask;
+            //use the result 
+            Console.WriteLine(result);
         }
 
-        private async Task<int> DoWork()
+        public async Task<int> LongRunningOperationAsync() // assume we return an int from this long running operation 
         {
-            int returnValue = 0;
-            for (int i =1; i<22222; i++)
-            {
-                if (i == 22222) returnValue = i;
-            }
-            return returnValue;
+            await Task.Delay(3000); //1 seconds delay
+            return 1;
         }
     }
 }
