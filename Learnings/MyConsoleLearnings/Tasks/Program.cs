@@ -12,7 +12,8 @@ namespace Tasks
         public static void Main(string[] args)
         {
             var myRunners = new Runners();
-            myRunners.TaskRunner();
+            myRunners.AsyncRunner();
+            Console.ReadKey();
         }
 
        
